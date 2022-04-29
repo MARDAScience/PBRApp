@@ -3,7 +3,7 @@ from PIL import Image
 import os, io, glob
 import zipfile
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import numpy as np
 from skimage.color import rgb2hsv, hsv2rgb
 from skimage.restoration import denoise_wavelet, estimate_sigma, rolling_ball
