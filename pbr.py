@@ -3,11 +3,9 @@ from PIL import Image
 import os, io, glob
 import zipfile
 
-from imageio import imread, imwrite
 import matplotlib.pyplot as plt
 import numpy as np
 from skimage.color import rgb2hsv, hsv2rgb
-# from glob import glob
 from skimage.restoration import denoise_wavelet, estimate_sigma, rolling_ball
 
 from functools import partial
@@ -75,9 +73,9 @@ def do_filter(f, outfile,radius=5):
     Z = np.array(Image.open(f), dtype=np.uint8)
     #radius = 3
     sharpened = sharpen(Z, radius)
-    imwrite(outfile,sharpened)
-
-
+    #imwrite(outfile,sharpened)
+    im = Image.fromarray(sharpened)
+    im.save(outfile, "JPEG")
 
 def rm_thumbnails():
     try:
@@ -150,7 +148,7 @@ else:
         image = Image.open(images_list[st.session_state.img_idx])
 
 st.title("P.B.R. Filter.")
-st.markdown("by Daniel Buscombe, Marda Science. {P}ansharpening by {B}ackground {R}emoval algorithm for sharpening RGB images. Upload images. Download a zipped folder of filtered images. See [github page](https://github.com/dbuscombe-usgs/PBR_filter) for code and docs")
+st.markdown("by Daniel Buscombe, Marda Science. {P}ansharpening by {B}ackground {R}emoval algorithm for sharpening RGB images. Upload images. Download a zipped folder of filtered images. See [github page](https://github.com/dbuscombe-usgs/PBR_filter) for code and docs. App based on [Sniffer streamlit app](https://github.com/2320sharon/1_streamlit) by the fantastic [@2320sharon](https://github.com/2320sharon)")
 st.image("./assets/IMG_0202_filt.JPG")
 # Sets num_image=1 if images_list is empty
 num_images=(len(images_list)) if (len(images_list))>0 else 1
